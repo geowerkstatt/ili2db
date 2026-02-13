@@ -6,6 +6,7 @@ import java.util.Map;
 
 import ch.ehi.basics.settings.Settings;
 import ch.ehi.ili2db.base.Ili2cUtility;
+import ch.interlis.ili2c.metamodel.AbstractCoordType;
 import ch.interlis.ili2c.metamodel.AttributeDef;
 import ch.interlis.ili2c.metamodel.CompositionType;
 import ch.interlis.ili2c.metamodel.CoordType;
@@ -13,6 +14,7 @@ import ch.interlis.ili2c.metamodel.Domain;
 import ch.interlis.ili2c.metamodel.Element;
 import ch.interlis.ili2c.metamodel.LineType;
 import ch.interlis.ili2c.metamodel.Model;
+import ch.interlis.ili2c.metamodel.MultiCoordType;
 import ch.interlis.ili2c.metamodel.NumericType;
 import ch.interlis.ili2c.metamodel.NumericalType;
 import ch.interlis.ili2c.metamodel.ObjectType;
@@ -106,13 +108,19 @@ public class Rounder implements IoxFilter {
                 }catch(NumberFormatException ex) {
                     // ignore; keep value as it is
                 }
-            }else if(type instanceof CoordType) {
+            }else if(type instanceof AbstractCoordType) {
                 IomObject attrValue=iomObj.getattrobj(srcAttrName,attri);
-                CoordType coordType = (CoordType) type;
+                AbstractCoordType coordType = (AbstractCoordType) type;
                 if (coordType.isGeneric()) {
-                    coordType = (CoordType) Ili2cUtility.resolveGenericCoordDomain(srcAttr, null, genericDomains).getType();
+                    coordType = (AbstractCoordType) Ili2cUtility.resolveGenericCoordDomain(srcAttr, null, genericDomains).getType();
                 }
-                roundSegment(attrValue, coordType);
+                if (coordType instanceof MultiCoordType) {
+                    for (int i = 0; i < attrValue.getattrvaluecount("coord"); i++) {
+                        roundSegment(attrValue.getattrobj("coord", i), coordType);
+                    }
+                } else {
+                    roundSegment(attrValue, coordType);
+                }
             }else if(type instanceof PolylineType) {
                 IomObject attrValue=iomObj.getattrobj(srcAttrName,attri);
                 roundLine(attrValue,(PolylineType)type, model);
@@ -158,7 +166,7 @@ public class Rounder implements IoxFilter {
             
         }
     }
-    private void roundSegment(IomObject iomObj, CoordType coordType) {
+    private void roundSegment(IomObject iomObj, AbstractCoordType coordType) {
 	    NumericalType[] dims = coordType.getDimensions();
 	    for(int i=0;i<dims.length;i++) {
 	        NumericType dimType = (NumericType) dims[i];
