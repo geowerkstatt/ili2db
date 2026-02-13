@@ -145,8 +145,8 @@ public abstract class MultiPolyline24Test {
         IomObject coord6 = sequence2.getattrobj("segment", 2);
         assertNotNull(coord6);
         assertEquals("480000.666", coord6.getattrvalue("C1"));
-        assertEquals("70000.66649", coord6.getattrvalue("C2"));
-        assertEquals("4000.6655", coord6.getattrvalue("C3"));
+        assertEquals("70000.666", coord6.getattrvalue("C2"));
+        assertEquals("4000.666", coord6.getattrvalue("C3"));
 
         assertTrue(reader.read() instanceof EndBasketEvent);
         assertTrue(reader.read() instanceof EndTransferEvent);

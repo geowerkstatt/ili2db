@@ -15,6 +15,7 @@ import ch.interlis.ili2c.metamodel.Element;
 import ch.interlis.ili2c.metamodel.LineType;
 import ch.interlis.ili2c.metamodel.Model;
 import ch.interlis.ili2c.metamodel.MultiCoordType;
+import ch.interlis.ili2c.metamodel.MultiPolylineType;
 import ch.interlis.ili2c.metamodel.NumericType;
 import ch.interlis.ili2c.metamodel.NumericalType;
 import ch.interlis.ili2c.metamodel.ObjectType;
@@ -124,6 +125,11 @@ public class Rounder implements IoxFilter {
             }else if(type instanceof PolylineType) {
                 IomObject attrValue=iomObj.getattrobj(srcAttrName,attri);
                 roundLine(attrValue,(PolylineType)type, model);
+            } else if (type instanceof MultiPolylineType) {
+                IomObject attrValue=iomObj.getattrobj(srcAttrName,attri);
+                for (int i = 0; i < attrValue.getattrvaluecount("polyline"); i++) {
+                    roundLine(attrValue.getattrobj("polyline", i), (MultiPolylineType)type, model);
+                }
             }else if(type instanceof SurfaceOrAreaType) {
                 IomObject attrValue=iomObj.getattrobj(srcAttrName,attri);
                 roundPolygon(attrValue,(SurfaceOrAreaType)type, model);
