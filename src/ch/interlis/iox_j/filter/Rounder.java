@@ -1,24 +1,16 @@
 package ch.interlis.iox_j.filter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import ch.ehi.basics.settings.Settings;
 import ch.ehi.ili2db.base.Ili2cUtility;
-import ch.interlis.ili2c.metamodel.AbstractClassDef;
 import ch.interlis.ili2c.metamodel.AttributeDef;
 import ch.interlis.ili2c.metamodel.CompositionType;
-import ch.interlis.ili2c.metamodel.Container;
 import ch.interlis.ili2c.metamodel.CoordType;
 import ch.interlis.ili2c.metamodel.Domain;
 import ch.interlis.ili2c.metamodel.Element;
-import ch.interlis.ili2c.metamodel.Enumeration;
-import ch.interlis.ili2c.metamodel.EnumerationType;
 import ch.interlis.ili2c.metamodel.LineType;
 import ch.interlis.ili2c.metamodel.Model;
 import ch.interlis.ili2c.metamodel.NumericType;
@@ -28,25 +20,19 @@ import ch.interlis.ili2c.metamodel.PolylineType;
 import ch.interlis.ili2c.metamodel.PrecisionDecimal;
 import ch.interlis.ili2c.metamodel.RoleDef;
 import ch.interlis.ili2c.metamodel.SurfaceOrAreaType;
-import ch.interlis.ili2c.metamodel.SurfaceType;
-import ch.interlis.ili2c.metamodel.Table;
-import ch.interlis.ili2c.metamodel.Topic;
 import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.ili2c.metamodel.Type;
 import ch.interlis.ili2c.metamodel.Viewable;
 import ch.interlis.ili2c.metamodel.ViewableTransferElement;
 import ch.interlis.iom.IomObject;
 import ch.interlis.iom_j.Iom_jObject;
-import ch.interlis.iom_j.itf.ModelUtilities;
 import ch.interlis.iox.EndBasketEvent;
-import ch.interlis.iox.EndTransferEvent;
 import ch.interlis.iox.IoxEvent;
 import ch.interlis.iox.IoxException;
 import ch.interlis.iox.IoxLogging;
 import ch.interlis.iox.IoxValidationDataPool;
 import ch.interlis.iox.ObjectEvent;
 import ch.interlis.iox.StartBasketEvent;
-import ch.interlis.iox.StartTransferEvent;
 import ch.interlis.iox_j.validator.Validator;
 
 public class Rounder implements IoxFilter {
