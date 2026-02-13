@@ -7,6 +7,7 @@ import java.util.Map;
 import ch.ehi.basics.settings.Settings;
 import ch.ehi.ili2db.base.Ili2cUtility;
 import ch.interlis.ili2c.metamodel.AbstractCoordType;
+import ch.interlis.ili2c.metamodel.AbstractSurfaceOrAreaType;
 import ch.interlis.ili2c.metamodel.AttributeDef;
 import ch.interlis.ili2c.metamodel.CompositionType;
 import ch.interlis.ili2c.metamodel.CoordType;
@@ -22,7 +23,6 @@ import ch.interlis.ili2c.metamodel.ObjectType;
 import ch.interlis.ili2c.metamodel.PolylineType;
 import ch.interlis.ili2c.metamodel.PrecisionDecimal;
 import ch.interlis.ili2c.metamodel.RoleDef;
-import ch.interlis.ili2c.metamodel.SurfaceOrAreaType;
 import ch.interlis.ili2c.metamodel.TransferDescription;
 import ch.interlis.ili2c.metamodel.Type;
 import ch.interlis.ili2c.metamodel.Viewable;
@@ -130,9 +130,9 @@ public class Rounder implements IoxFilter {
                 for (int i = 0; i < attrValue.getattrvaluecount("polyline"); i++) {
                     roundLine(attrValue.getattrobj("polyline", i), (MultiPolylineType)type, model);
                 }
-            }else if(type instanceof SurfaceOrAreaType) {
+            }else if(type instanceof AbstractSurfaceOrAreaType) {
                 IomObject attrValue=iomObj.getattrobj(srcAttrName,attri);
-                roundPolygon(attrValue,(SurfaceOrAreaType)type, model);
+                roundPolygon(attrValue,(AbstractSurfaceOrAreaType) type, model);
             }else if(srcAttr.getDomain() instanceof CompositionType){
                 IomObject attrValue=iomObj.getattrobj(srcAttrName,attri);
                 roundObject(attrValue);
@@ -140,7 +140,7 @@ public class Rounder implements IoxFilter {
 		}
 	}
 
-	private void roundPolygon(IomObject surfaceValue, SurfaceOrAreaType type, Model model) {
+	private void roundPolygon(IomObject surfaceValue, AbstractSurfaceOrAreaType type, Model model) {
 	    int surfacec=surfaceValue.getattrvaluecount("surface");
 	    for(int surfacei=0;surfacei<surfacec;surfacei++) {
 	        IomObject surface= surfaceValue.getattrobj("surface",surfacei);

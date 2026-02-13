@@ -238,8 +238,8 @@ public abstract class MultiSurfaceArea24Test {
                 assertEquals("5000.111", coord5.getattrvalue("C3"));
 
                 assertEquals(x+".666", coord6.getattrvalue("C1"));
-                assertEquals("70000.66649", coord6.getattrvalue("C2"));
-                assertEquals("5000.1105", coord6.getattrvalue("C3"));
+                assertEquals("70000.666", coord6.getattrvalue("C2"));
+                assertEquals("5000.111", coord6.getattrvalue("C3"));
 
                 assertEquals(x+".555", coord7.getattrvalue("C1"));
                 assertEquals("70000.222", coord7.getattrvalue("C2"));
